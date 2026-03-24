@@ -137,6 +137,10 @@ async def start_scheduler():
         tasks.post_group_webhooks,
     )
 
+    SchedulerRegistry.register_every_minute(
+        tasks.sync_nextcloud_tasks,
+    )
+
     SchedulerRegistry.register_hourly(
         tasks.locked_user_reset,
     )

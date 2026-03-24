@@ -1,3 +1,4 @@
+import logging
 from collections.abc import Callable
 from functools import cached_property
 
@@ -36,6 +37,47 @@ from mealie.services.event_bus_service.event_types import (
 from mealie.services.household_services.shopping_lists import ShoppingListService
 
 item_router = APIRouter(prefix="/households/shopping/items", tags=["Households: Shopping List Items"])
+
+nc_log = logging.getLogger(__name__)
+
+
+def _nc_push_items(controller: "ShoppingListItemController", items: ShoppingListItemsCollectionOut) -> None:
+    """Push item changes to Nextcloud if configured."""
+    try:
+        from mealie.services.nextcloud.sync import NextcloudSyncService, create_nc_service_from_prefs
+
+        prefs = controller.household.preferences
+        nc = create_nc_service_from_prefs(prefs)
+        if not nc:
+            return
+
+        sync = NextcloudSyncService(controller.repos, nc)
+
+        if items.created_items:
+            # Group by shopping list to batch the push
+            by_list: dict[str, list] = {}
+            for item in items.created_items:
+                by_list.setdefault(str(item.shopping_list_id), []).append(item.id)
+            for list_id, item_ids in by_list.items():
+                sync.push_items_created(UUID4(list_id), item_ids)
+
+        if items.updated_items:
+            by_list = {}
+            for item in items.updated_items:
+                by_list.setdefault(str(item.shopping_list_id), []).append(item.id)
+            for list_id, item_ids in by_list.items():
+                sync.push_items_updated(UUID4(list_id), item_ids)
+
+        if items.deleted_items:
+            nc_uids = []
+            for item in items.deleted_items:
+                nc_uid = (item.extras or {}).get("nextcloud_uid")
+                if nc_uid:
+                    nc_uids.append(nc_uid)
+            if nc_uids:
+                sync.push_items_deleted_by_nc_uids(nc_uids)
+    except Exception:
+        nc_log.warning("Nextcloud push failed", exc_info=True)
 
 
 def publish_list_item_events(publisher: Callable, items_collection: ShoppingListItemsCollectionOut) -> None:
@@ -122,6 +164,7 @@ class ShoppingListItemController(BaseCrudController):
     def create_many(self, data: list[ShoppingListItemCreate]):
         items = self.service.bulk_create_items(data)
         publish_list_item_events(self.publish_event, items)
+        _nc_push_items(self, items)
         return items
 
     @item_router.post("", response_model=ShoppingListItemsCollectionOut, status_code=201)
@@ -136,6 +179,7 @@ class ShoppingListItemController(BaseCrudController):
     def update_many(self, data: list[ShoppingListItemUpdateBulk]):
         items = self.service.bulk_update_items(data)
         publish_list_item_events(self.publish_event, items)
+        _nc_push_items(self, items)
         return items
 
     @item_router.put("/{item_id}", response_model=ShoppingListItemsCollectionOut)
@@ -144,8 +188,30 @@ class ShoppingListItemController(BaseCrudController):
 
     @item_router.delete("", response_model=SuccessResponse)
     def delete_many(self, ids: list[UUID4] = Query(None)):
+        # Capture NC UIDs before deletion
+        nc_uids_to_delete: list[str] = []
+        for item_id in (ids or []):
+            item = self.repo.get_one(item_id)
+            if item:
+                nc_uid = (item.extras or {}).get("nextcloud_uid")
+                if nc_uid:
+                    nc_uids_to_delete.append(nc_uid)
+
         items = self.service.bulk_delete_items(ids)
         publish_list_item_events(self.publish_event, items)
+
+        # Push deletes to NC
+        if nc_uids_to_delete:
+            try:
+                from mealie.services.nextcloud.sync import NextcloudSyncService, create_nc_service_from_prefs
+                prefs = self.household.preferences
+                nc = create_nc_service_from_prefs(prefs)
+                if nc:
+                    sync = NextcloudSyncService(self.repos, nc)
+                    sync.push_items_deleted_by_nc_uids(nc_uids_to_delete)
+            except Exception:
+                nc_log.warning("Nextcloud delete push failed", exc_info=True)
+
         return SuccessResponse.respond()
 
     @item_router.delete("/{item_id}", response_model=SuccessResponse)
@@ -199,6 +265,18 @@ class ShoppingListController(BaseCrudController):
 
     @router.get("/{item_id}", response_model=ShoppingListOut)
     def get_one(self, item_id: UUID4):
+        # Pull latest changes from Nextcloud if configured for this household
+        try:
+            from mealie.services.nextcloud.sync import NextcloudSyncService, create_nc_service_from_prefs
+
+            prefs = self.household.preferences
+            nc = create_nc_service_from_prefs(prefs)
+            if nc:
+                sync = NextcloudSyncService(self.repos, nc)
+                sync.pull_changes(item_id)
+        except Exception:
+            logging.getLogger(__name__).warning("Nextcloud pull-on-load failed", exc_info=True)
+
         return self.mixins.get_one(item_id)
 
     @router.put("/{item_id}", response_model=ShoppingListOut)

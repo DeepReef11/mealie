@@ -1,0 +1,36 @@
+# Development Nextcloud instance for testing Mealie shopping list sync.
+#
+# Usage:
+#   docker compose -f docker-compose.nextcloud-dev.yml up -d
+#   # Wait ~30s for Nextcloud to initialize, then install Tasks app:
+#   docker exec mealie-nc-dev bash -c "php occ app:install tasks && php occ app:enable tasks"
+#   # Optionally create a dedicated task list:
+#   docker exec mealie-nc-dev php occ dav:create-calendar admin shopping
+#
+# Nextcloud will be available at http://localhost:8085
+#   Login: admin / admin123
+#
+# Then in Mealie, go to /household/nextcloud and configure:
+#   URL: http://localhost:8085  (or http://172.17.0.1:8085 from Docker)
+#   Username: admin
+#   Password: admin123
+#   Click "Test Connection" to discover task lists
+#   Select a list from the dropdown and Save
+
+services:
+  nextcloud:
+    image: nextcloud:latest
+    container_name: mealie-nc-dev
+    restart: "no"
+    ports:
+      - "8085:80"
+    environment:
+      NEXTCLOUD_ADMIN_USER: admin
+      NEXTCLOUD_ADMIN_PASSWORD: admin123
+      NEXTCLOUD_TRUSTED_DOMAINS: "localhost 127.0.0.1 192.168.0.0/16 172.17.0.0/16 10.0.0.0/8"
+      SQLITE_DATABASE: nextcloud
+    volumes:
+      - nc_dev_data:/var/www/html
+
+volumes:
+  nc_dev_data:
