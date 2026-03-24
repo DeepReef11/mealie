@@ -13,7 +13,7 @@ from mealie.db.models._model_utils.guid import GUID
 
 # revision identifiers, used by Alembic.
 revision = "c3d4e5f6a7b8"
-down_revision: str | None = "a39c7f1826e3"
+down_revision: str | None = "b1c2d3e4f5a6"
 branch_labels: str | tuple[str, ...] | None = None
 depends_on: str | tuple[str, ...] | None = None
 
