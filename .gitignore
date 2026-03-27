@@ -173,12 +173,5 @@ dev/code-generation/openapi.json
 .task/*
 .dev.env
 frontend/eslint.config.deprecated.js
-
-# Claude Code
-CLAUDE.md
-
-# Claude Code
-CLAUDE.md
-
-# Claude Code
-CLAUDE.md
+ recette
+Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to yo
