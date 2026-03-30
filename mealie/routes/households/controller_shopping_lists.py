@@ -3,7 +3,7 @@ import logging
 from collections.abc import AsyncIterable, Callable
 from functools import cached_property
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from fastapi.sse import EventSourceResponse, ServerSentEvent
 from pydantic import UUID4
 
@@ -319,27 +319,22 @@ class ShoppingListController(BaseCrudController):
 sse_router = APIRouter(prefix="/households/shopping/lists", tags=["Households: Shopping Lists"])
 
 
-async def _stream_shopping_list(item_id: str) -> AsyncIterable[ServerSentEvent]:
-    """Stream shopping list item changes via Server-Sent Events."""
-    queue = sse_manager.connect(item_id)
+@sse_router.get("/{item_id}/stream", response_class=EventSourceResponse)
+async def stream_shopping_list_events(
+    item_id: UUID4,
+    _=Depends(get_current_user),
+) -> AsyncIterable[ServerSentEvent]:
+    """Stream real-time item change events for a shopping list via SSE."""
+    list_id = str(item_id)
+    queue = sse_manager.connect(list_id)
     try:
         while True:
             try:
                 data = await asyncio.wait_for(queue.get(), timeout=30.0)
                 yield ServerSentEvent(data=data, event="items_changed")
             except asyncio.TimeoutError:
-                # Send keepalive ping to prevent proxy/client timeout
                 yield ServerSentEvent(comment="keepalive")
     except asyncio.CancelledError:
         pass
     finally:
-        sse_manager.disconnect(item_id, queue)
-
-
-@sse_router.get("/{item_id}/stream")
-async def stream_shopping_list_events(
-    item_id: UUID4,
-    _=Depends(get_current_user),
-) -> EventSourceResponse:
-    """Stream real-time item change events for a shopping list via SSE."""
-    return EventSourceResponse(_stream_shopping_list(str(item_id)))
+        sse_manager.disconnect(list_id, queue)
