@@ -314,7 +314,9 @@ class ShoppingListController(BaseCrudController):
 
 
 # =======================================================================
-# SSE Streaming Endpoint (standalone async — cannot be inside @controller class)
+# SSE Streaming Endpoint (separate router to avoid @controller prefix reset)
+
+sse_router = APIRouter(prefix="/households/shopping/lists", tags=["Households: Shopping Lists"])
 
 
 async def _stream_shopping_list(item_id: str, request: Request) -> AsyncIterable[ServerSentEvent]:
@@ -336,10 +338,9 @@ async def _stream_shopping_list(item_id: str, request: Request) -> AsyncIterable
         sse_manager.disconnect(item_id, queue)
 
 
-@router.get(
+@sse_router.get(
     "/{item_id}/stream",
     response_class=EventSourceResponse,
-    tags=["Households: Shopping Lists"],
 )
 async def stream_shopping_list_events(
     item_id: UUID4,
