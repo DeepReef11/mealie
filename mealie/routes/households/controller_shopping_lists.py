@@ -1,9 +1,13 @@
-from collections.abc import Callable
+import asyncio
+import logging
+from collections.abc import AsyncIterable, Callable
 from functools import cached_property
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
+from fastapi.sse import EventSourceResponse, ServerSentEvent
 from pydantic import UUID4
 
+from mealie.core.dependencies.dependencies import get_current_user
 from mealie.routes._base.base_controllers import BaseCrudController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
@@ -33,12 +37,38 @@ from mealie.services.event_bus_service.event_types import (
     EventShoppingListItemBulkData,
     EventTypes,
 )
+from mealie.services.event_bus_service.sse_manager import sse_manager
 from mealie.services.household_services.shopping_lists import ShoppingListService
+
+logger = logging.getLogger(__name__)
 
 item_router = APIRouter(prefix="/households/shopping/items", tags=["Households: Shopping List Items"])
 
 
+def _broadcast_sse(items_collection: ShoppingListItemsCollectionOut) -> None:
+    """Broadcast item changes to all SSE clients watching affected shopping lists."""
+    for operation, items_list in [
+        ("create", items_collection.created_items),
+        ("update", items_collection.updated_items),
+        ("delete", items_collection.deleted_items),
+    ]:
+        if not items_list:
+            continue
+        items_by_list_id: dict[UUID4, list[ShoppingListItemOut]] = {}
+        for item in items_list:
+            items_by_list_id.setdefault(item.shopping_list_id, []).append(item)
+        for shopping_list_id, items in items_by_list_id.items():
+            sse_manager.broadcast(
+                str(shopping_list_id),
+                operation,
+                [item.id for item in items],
+            )
+
+
 def publish_list_item_events(publisher: Callable, items_collection: ShoppingListItemsCollectionOut) -> None:
+    # Broadcast to SSE clients
+    _broadcast_sse(items_collection)
+
     items_by_list_id: dict[UUID4, list[ShoppingListItemOut]]
     if items_collection.created_items:
         items_by_list_id = {}
@@ -281,3 +311,40 @@ class ShoppingListController(BaseCrudController):
 
         publish_list_item_events(self.publish_event, items)
         return shopping_list
+
+
+# =======================================================================
+# SSE Streaming Endpoint (standalone async — cannot be inside @controller class)
+
+
+async def _stream_shopping_list(item_id: str, request: Request) -> AsyncIterable[ServerSentEvent]:
+    """Stream shopping list item changes via Server-Sent Events."""
+    queue = sse_manager.connect(item_id)
+    try:
+        while True:
+            try:
+                data = await asyncio.wait_for(queue.get(), timeout=30.0)
+                yield ServerSentEvent(data=data, event="items_changed")
+            except asyncio.TimeoutError:
+                # Send keepalive ping to prevent proxy/client timeout
+                yield ServerSentEvent(comment="keepalive")
+            if await request.is_disconnected():
+                break
+    except asyncio.CancelledError:
+        pass
+    finally:
+        sse_manager.disconnect(item_id, queue)
+
+
+@router.get(
+    "/{item_id}/stream",
+    response_class=EventSourceResponse,
+    tags=["Households: Shopping Lists"],
+)
+async def stream_shopping_list_events(
+    item_id: UUID4,
+    request: Request,
+    _=Depends(get_current_user),
+) -> EventSourceResponse:
+    """Stream real-time item change events for a shopping list via SSE."""
+    return EventSourceResponse(_stream_shopping_list(str(item_id), request))

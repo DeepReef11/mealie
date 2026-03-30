@@ -35,6 +35,16 @@ class HouseholdPreferencesModel(SqlAlchemyBase, BaseMixins):
     # Deprecated
     recipe_disable_amount: Mapped[bool | None] = mapped_column(sa.Boolean, default=True)
 
+    # List Provider Integration
+    list_provider_type: Mapped[str | None] = mapped_column(sa.String, default=None)
+    nextcloud_url: Mapped[str | None] = mapped_column(sa.String, default=None)
+    nextcloud_username: Mapped[str | None] = mapped_column(sa.String, default=None)
+    nextcloud_password: Mapped[str | None] = mapped_column(sa.String, default=None)
+    nextcloud_task_list: Mapped[str | None] = mapped_column(sa.String, default=None)
+    nextcloud_verify_ssl: Mapped[bool | None] = mapped_column(sa.Boolean, default=True)
+    todoist_api_token: Mapped[str | None] = mapped_column(sa.String, default=None)
+    todoist_project: Mapped[str | None] = mapped_column(sa.String, default=None)
+
     @auto_init()
     def __init__(self, **_) -> None:
         pass

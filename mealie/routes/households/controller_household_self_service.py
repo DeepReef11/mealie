@@ -1,5 +1,7 @@
+import logging
 from functools import cached_property
 
+import httpx
 from fastapi import Depends, HTTPException, status
 
 from mealie.routes._base.base_controllers import BaseUserController
@@ -12,6 +14,8 @@ from mealie.schema.household.household_statistics import HouseholdStatistics
 from mealie.schema.response.pagination import PaginationBase, PaginationQuery
 from mealie.schema.user.user import UserOut
 from mealie.services.household_services.household_service import HouseholdService
+
+logger = logging.getLogger(__name__)
 
 router = UserAPIRouter(prefix="/households", tags=["Households: Self Service"])
 
@@ -89,3 +93,70 @@ class HouseholdSelfServiceController(BaseUserController):
     @router.get("/statistics", response_model=HouseholdStatistics)
     def get_statistics(self):
         return self.service.calculate_statistics()
+
+    @router.post("/todoist/test")
+    def test_todoist(self):
+        """Test Todoist connection and return available projects."""
+        self.checks.can_manage_household()
+        prefs = self.household.preferences
+        token = prefs.todoist_api_token if prefs else None
+        if not token:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, detail="Todoist API token not configured")
+
+        try:
+            resp = httpx.get(
+                "https://api.todoist.com/rest/v2/projects",
+                headers={"Authorization": f"Bearer {token}"},
+                timeout=10,
+            )
+            resp.raise_for_status()
+            projects = resp.json()
+            return {
+                "success": True,
+                "projects": [{"id": p["id"], "name": p["name"]} for p in projects],
+            }
+        except Exception as e:
+            logger.warning(f"Todoist test failed: {e}")
+            return {"success": False, "error": str(e), "projects": []}
+
+    @router.post("/nextcloud/test")
+    def test_nextcloud(self):
+        """Test Nextcloud CalDAV connection and return available task lists."""
+        self.checks.can_manage_household()
+        prefs = self.household.preferences
+        if not prefs or not prefs.nextcloud_url:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, detail="Nextcloud URL not configured")
+
+        url = prefs.nextcloud_url.rstrip("/")
+        username = prefs.nextcloud_username or ""
+        password = prefs.nextcloud_password or ""
+        verify_ssl = prefs.nextcloud_verify_ssl if prefs.nextcloud_verify_ssl is not None else True
+
+        calendars_url = f"{url}/remote.php/dav/calendars/{username}/"
+        try:
+            resp = httpx.request(
+                "PROPFIND",
+                calendars_url,
+                auth=(username, password),
+                headers={"Depth": "1", "Content-Type": "application/xml"},
+                content='<?xml version="1.0" encoding="UTF-8"?>'
+                '<d:propfind xmlns:d="DAV:">'
+                "<d:prop><d:displayname/><d:resourcetype/></d:prop>"
+                "</d:propfind>",
+                verify=verify_ssl,
+                timeout=10,
+            )
+            resp.raise_for_status()
+
+            # Parse calendar names from PROPFIND response
+            import re
+            calendars = []
+            for match in re.finditer(r"<d:displayname>([^<]+)</d:displayname>", resp.text):
+                name = match.group(1)
+                if name:
+                    calendars.append({"name": name, "slug": name})
+
+            return {"success": True, "calendars": calendars}
+        except Exception as e:
+            logger.warning(f"Nextcloud test failed: {e}")
+            return {"success": False, "error": str(e), "calendars": []}

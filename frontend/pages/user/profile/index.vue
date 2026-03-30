@@ -209,6 +209,21 @@
             </UserProfileLinkCard>
           </v-col>
         </AdvancedOnly>
+        <v-col
+          cols="12"
+          sm="12"
+          md="6"
+        >
+          <UserProfileLinkCard
+            :link="{ text: $t('settings.list-providers'), to: `/household/list-providers` }"
+            image="/svgs/manage-group-settings.svg"
+          >
+            <template #title>
+              {{ $t('settings.list-providers') }}
+            </template>
+            {{ $t('settings.list-providers-description') }}
+          </UserProfileLinkCard>
+        </v-col>
       </v-row>
     </section>
     <v-divider class="my-7" />

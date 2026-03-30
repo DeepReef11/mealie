@@ -19,6 +19,16 @@ class UpdateHouseholdPreferences(MealieModel):
     recipe_landscape_view: bool = False
     recipe_disable_comments: bool = False
 
+    # List Provider Integration
+    list_provider_type: str | None = None  # "nextcloud", "todoist", or None
+    nextcloud_url: str | None = None
+    nextcloud_username: str | None = None
+    nextcloud_password: str | None = None
+    nextcloud_task_list: str | None = None
+    nextcloud_verify_ssl: bool = True
+    todoist_api_token: str | None = None
+    todoist_project: str | None = None
+
 
 class CreateHouseholdPreferences(UpdateHouseholdPreferences): ...
 
