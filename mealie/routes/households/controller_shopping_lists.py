@@ -319,7 +319,7 @@ class ShoppingListController(BaseCrudController):
 sse_router = APIRouter(prefix="/households/shopping/lists", tags=["Households: Shopping Lists"])
 
 
-async def _stream_shopping_list(item_id: str, request: Request) -> AsyncIterable[ServerSentEvent]:
+async def _stream_shopping_list(item_id: str) -> AsyncIterable[ServerSentEvent]:
     """Stream shopping list item changes via Server-Sent Events."""
     queue = sse_manager.connect(item_id)
     try:
@@ -330,22 +330,16 @@ async def _stream_shopping_list(item_id: str, request: Request) -> AsyncIterable
             except asyncio.TimeoutError:
                 # Send keepalive ping to prevent proxy/client timeout
                 yield ServerSentEvent(comment="keepalive")
-            if await request.is_disconnected():
-                break
     except asyncio.CancelledError:
         pass
     finally:
         sse_manager.disconnect(item_id, queue)
 
 
-@sse_router.get(
-    "/{item_id}/stream",
-    response_class=EventSourceResponse,
-)
+@sse_router.get("/{item_id}/stream")
 async def stream_shopping_list_events(
     item_id: UUID4,
-    request: Request,
     _=Depends(get_current_user),
 ) -> EventSourceResponse:
     """Stream real-time item change events for a shopping list via SSE."""
-    return EventSourceResponse(_stream_shopping_list(str(item_id), request))
+    return EventSourceResponse(_stream_shopping_list(str(item_id)))
