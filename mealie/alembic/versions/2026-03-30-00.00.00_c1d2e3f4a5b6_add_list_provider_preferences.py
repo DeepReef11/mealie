@@ -23,7 +23,7 @@ def upgrade():
         batch_op.add_column(sa.Column("nextcloud_username", sa.String(), nullable=True))
         batch_op.add_column(sa.Column("nextcloud_password", sa.String(), nullable=True))
         batch_op.add_column(sa.Column("nextcloud_task_list", sa.String(), nullable=True))
-        batch_op.add_column(sa.Column("nextcloud_verify_ssl", sa.Boolean(), server_default=sa.text("1"), nullable=True))
+        batch_op.add_column(sa.Column("nextcloud_verify_ssl", sa.Boolean(), server_default=sa.text("true"), nullable=True))
         batch_op.add_column(sa.Column("todoist_api_token", sa.String(), nullable=True))
         batch_op.add_column(sa.Column("todoist_project", sa.String(), nullable=True))
 
