@@ -101,9 +101,10 @@ class ShoppingListItemUpdate(ShoppingListItemBase):
 
     def model_dump(self, **kwargs):
         d = super().model_dump(**kwargs)
-        # When extras is None (not provided by caller), exclude it so the
-        # existing extras on the model are preserved during update.
-        if d.get("extras") is None:
+        # When extras is None (not provided) or empty dict (frontend default),
+        # exclude it so the existing extras on the model are preserved during update.
+        # Only an explicitly non-empty extras dict should overwrite existing extras.
+        if not d.get("extras"):
             d.pop("extras", None)
         return d
 
