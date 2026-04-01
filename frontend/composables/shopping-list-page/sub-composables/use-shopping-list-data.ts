@@ -121,8 +121,9 @@ export function useShoppingListData(listId: string, shoppingList: Ref<ShoppingLi
 
       sseConnection.addEventListener("open", () => {
         sseActive = true;
-        // SSE connected — stop polling fallback
-        stopPollingFallback();
+        // SSE connected — keep polling to ensure queue flushes
+        // (SSE only fires on server-side changes, but the queue needs
+        // periodic flushing for client-side changes like checkbox clicks)
       });
 
       sseConnection.addEventListener("error", () => {
