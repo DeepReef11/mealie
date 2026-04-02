@@ -66,6 +66,8 @@ class ShoppingListItemBase(RecipeIngredientBase):
     label_id: UUID4 | None = None
     unit_id: UUID4 | None = None
 
+    provider_item_id: str | None = None
+
     extras: dict | None = None
 
     @field_validator("extras", mode="before")

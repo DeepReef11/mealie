@@ -1,0 +1,87 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]: Keyboard navigation help
+    - generic [ref=e5]:
+      - link "Skip to app navigation" [ref=e6] [cursor=pointer]:
+        - /url: "#app-navigation-vue"
+        - generic [ref=e8]: Skip to app navigation
+      - link "Skip to main content" [ref=e9] [cursor=pointer]:
+        - /url: "#app-content-vue"
+        - generic [ref=e11]: Skip to main content
+  - banner [ref=e12]:
+    - generic [ref=e13]:
+      - link "Go to Dashboard" [ref=e14] [cursor=pointer]:
+        - /url: /
+      - navigation "Applications menu" [ref=e16]:
+        - list "Apps" [ref=e17]:
+          - listitem [ref=e18]:
+            - link "Dashboard" [ref=e19] [cursor=pointer]:
+              - /url: /apps/dashboard/
+              - img [ref=e20]
+              - generic [ref=e21]: Dashboard
+          - listitem [ref=e22]:
+            - link "Files" [ref=e23] [cursor=pointer]:
+              - /url: /apps/files/
+              - img [ref=e24]
+              - generic [ref=e25]: Files
+          - listitem [ref=e26]:
+            - link "Photos" [ref=e27] [cursor=pointer]:
+              - /url: /apps/photos/
+              - img [ref=e28]
+              - generic [ref=e29]: Photos
+          - listitem [ref=e30]:
+            - link "Activity" [ref=e31] [cursor=pointer]:
+              - /url: /apps/activity/
+              - img [ref=e32]
+              - generic [ref=e33]: Activity
+          - listitem [ref=e34]:
+            - link "Tasks" [ref=e35] [cursor=pointer]:
+              - /url: /apps/tasks/
+              - img [ref=e36]
+              - generic [ref=e37]: Tasks
+    - generic [ref=e38]:
+      - button "Unified search" [ref=e41] [cursor=pointer]:
+        - img [ref=e44]:
+          - img [ref=e45]
+      - generic "Notifications" [ref=e48]:
+        - button "Notifications" [ref=e49] [cursor=pointer]:
+          - img [ref=e53]
+      - button "Search contacts" [ref=e57] [cursor=pointer]:
+        - img [ref=e60]:
+          - img [ref=e61]
+      - navigation "Settings menu" [ref=e63]:
+        - button "Settings menu" [ref=e64] [cursor=pointer]:
+          - img [ref=e68]:
+            - img [ref=e69]
+        - generic [ref=e71]: Avatar of admin — Online
+  - generic [ref=e73]:
+    - generic [ref=e74]:
+      - navigation [ref=e75]:
+        - list [ref=e76]:
+          - listitem [ref=e77]:
+            - link [ref=e79] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e81]:
+                - img [ref=e82]
+              - generic [ref=e84]: Add List…
+        - button [ref=e87] [cursor=pointer]:
+          - generic [ref=e88]:
+            - img [ref=e90]:
+              - img [ref=e91]
+            - generic [ref=e93]: Tasks settings
+      - button "Open navigation" [ref=e95] [cursor=pointer]:
+        - img [ref=e98]:
+          - img [ref=e99]
+    - main [ref=e101]:
+      - generic [ref=e103]:
+        - generic "Active filter" [ref=e104]:
+          - button "Actions" [ref=e106] [cursor=pointer]:
+            - img [ref=e110]:
+              - img [ref=e111]
+        - generic "Change sort order" [ref=e113]:
+          - button "Actions" [ref=e115] [cursor=pointer]:
+            - generic [ref=e118]:
+              - img [ref=e119]:
+                - img [ref=e120]
+              - img [ref=e122]:
+                - img [ref=e123]

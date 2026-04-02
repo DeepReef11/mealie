@@ -1,0 +1,454 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - banner [ref=e5]:
+      - generic [ref=e6]:
+        - button [ref=e7] [cursor=pointer]:
+          - img [ref=e10]
+        - link [ref=e12] [cursor=pointer]:
+          - /url: /g/home
+          - button [ref=e13]:
+            - img [ref=e16]
+        - generic [ref=e20] [cursor=pointer]: Mealie
+        - generic [ref=e23]:
+          - generic [ref=e25]:
+            - img [ref=e28]
+            - textbox "Press '/'" [ref=e31]
+          - alert [ref=e32]
+        - button "Logout" [ref=e34] [cursor=pointer]:
+          - generic [ref=e35]:
+            - img [ref=e37]
+            - text: Logout
+    - navigation [ref=e39]:
+      - generic [ref=e40]:
+        - link "d70a69ea-823e-41c7-a864-312773359059 services Favorite Recipes" [ref=e41] [cursor=pointer]:
+          - /url: /user/profile
+          - generic [ref=e43]:
+            - img "d70a69ea-823e-41c7-a864-312773359059" [ref=e45]
+            - generic [ref=e46]:
+              - generic [ref=e47]: services
+              - link "Favorite Recipes" [ref=e49]:
+                - /url: /user/d70a69ea-823e-41c7-a864-312773359059/favorites
+                - generic [ref=e50]:
+                  - img [ref=e52]
+                  - text: Favorite Recipes
+        - separator [ref=e54]
+        - button "Create" [ref=e55] [cursor=pointer]:
+          - generic [ref=e56]:
+            - img [ref=e58]
+            - text: Create
+        - list [ref=e60]:
+          - listitem [ref=e62] [cursor=pointer]:
+            - img [ref=e65]
+            - generic [ref=e68]: Recipes
+          - listitem [ref=e70] [cursor=pointer]:
+            - img [ref=e73]
+            - generic [ref=e76]: Recipe Finder
+          - listitem [ref=e78] [cursor=pointer]:
+            - img [ref=e81]
+            - generic [ref=e84]: Meal Planner
+          - listitem [ref=e86] [cursor=pointer]:
+            - img [ref=e89]
+            - generic [ref=e92]: Shopping Lists
+          - listitem [ref=e94] [cursor=pointer]:
+            - img [ref=e97]
+            - generic [ref=e100]: Timeline
+          - listitem [ref=e102] [cursor=pointer]:
+            - img [ref=e105]
+            - generic [ref=e108]: Cookbooks
+          - listitem [ref=e111] [cursor=pointer]:
+            - img [ref=e114]
+            - generic [ref=e117]: Organizers
+            - img [ref=e120]
+      - list [ref=e123]:
+        - listitem [ref=e124] [cursor=pointer]:
+          - img [ref=e127]
+          - generic [ref=e130]: Settings
+    - main [ref=e131]:
+      - generic [ref=e135]:
+        - generic [ref=e136]:
+          - generic [ref=e137]:
+            - generic [ref=e139]:
+              - generic [ref=e141]:
+                - generic [ref=e142]:
+                  - generic [ref=e143]: Pâtes Crémeuses au Citron
+                  - generic [ref=e145]:
+                    - generic:
+                      - generic: Rating 0 of 5
+                    - radio "Rating 0 of 5"
+                    - generic [ref=e147]:
+                      - generic [ref=e148] [cursor=pointer]:
+                        - generic: Rating 0.5 of 5
+                        - button "Rating 0.5 of 5" [ref=e149]:
+                          - img [ref=e152]
+                      - radio "Rating 0.5 of 5 Rating 0.5 of 5"
+                      - generic [ref=e154] [cursor=pointer]:
+                        - generic: Rating 1 of 5
+                        - button "Rating 1 of 5" [ref=e155]:
+                          - img [ref=e158]
+                      - radio "Rating 1 of 5 Rating 1 of 5"
+                    - generic [ref=e161]:
+                      - generic [ref=e162] [cursor=pointer]:
+                        - generic: Rating 1.5 of 5
+                        - button "Rating 1.5 of 5" [ref=e163]:
+                          - img [ref=e166]
+                      - radio "Rating 1.5 of 5 Rating 1.5 of 5"
+                      - generic [ref=e168] [cursor=pointer]:
+                        - generic: Rating 2 of 5
+                        - button "Rating 2 of 5" [ref=e169]:
+                          - img [ref=e172]
+                      - radio "Rating 2 of 5 Rating 2 of 5"
+                    - generic [ref=e175]:
+                      - generic [ref=e176] [cursor=pointer]:
+                        - generic: Rating 2.5 of 5
+                        - button "Rating 2.5 of 5" [ref=e177]:
+                          - img [ref=e180]
+                      - radio "Rating 2.5 of 5 Rating 2.5 of 5"
+                      - generic [ref=e182] [cursor=pointer]:
+                        - generic: Rating 3 of 5
+                        - button "Rating 3 of 5" [ref=e183]:
+                          - img [ref=e186]
+                      - radio "Rating 3 of 5 Rating 3 of 5"
+                    - generic [ref=e189]:
+                      - generic [ref=e190] [cursor=pointer]:
+                        - generic: Rating 3.5 of 5
+                        - button "Rating 3.5 of 5" [ref=e191]:
+                          - img [ref=e194]
+                      - radio "Rating 3.5 of 5 Rating 3.5 of 5"
+                      - generic [ref=e196] [cursor=pointer]:
+                        - generic: Rating 4 of 5
+                        - button "Rating 4 of 5" [ref=e197]:
+                          - img [ref=e200]
+                      - radio "Rating 4 of 5 Rating 4 of 5"
+                    - generic [ref=e203]:
+                      - generic [ref=e204] [cursor=pointer]:
+                        - generic: Rating 4.5 of 5
+                        - button "Rating 4.5 of 5" [ref=e205]:
+                          - img [ref=e208]
+                      - radio "Rating 4.5 of 5 Rating 4.5 of 5"
+                      - generic [ref=e210] [cursor=pointer]:
+                        - generic: Rating 5 of 5
+                        - button "Rating 5 of 5" [ref=e211]:
+                          - img [ref=e214]
+                      - radio "Rating 5 of 5 Rating 5 of 5"
+                - separator [ref=e216]
+                - paragraph [ref=e218]: 6 portions. Pâtes crémeuses sans produits laitiers avec croûtons à l'ail.
+                - separator [ref=e219]
+                - button "Last Made Never" [ref=e228] [cursor=pointer]:
+                  - generic [ref=e229]:
+                    - img [ref=e231]
+                    - generic [ref=e233]:
+                      - text: Last Made
+                      - text: Never
+                    - img [ref=e235]
+              - img [ref=e238]
+            - separator [ref=e239]
+            - generic [ref=e242]:
+              - button [ref=e243] [cursor=pointer]:
+                - img [ref=e246]
+              - button [ref=e248] [cursor=pointer]:
+                - img [ref=e251]
+              - button [ref=e254] [cursor=pointer]:
+                - img [ref=e257]
+              - button [ref=e260] [cursor=pointer]:
+                - img [ref=e263]
+          - generic [ref=e265]:
+            - generic [ref=e269]:
+              - generic [ref=e271] [cursor=pointer]:
+                - img [ref=e273]
+                - text: Serves 6
+              - generic [ref=e275]:
+                - button [ref=e276] [cursor=pointer]:
+                  - img [ref=e279]
+                - button [ref=e281] [cursor=pointer]:
+                  - img [ref=e284]
+            - generic [ref=e286]:
+              - generic [ref=e289]:
+                - generic [ref=e290]:
+                  - heading "Ingredients" [level=2] [ref=e291]
+                  - button [ref=e292] [cursor=pointer]:
+                    - img [ref=e295]
+                - generic [ref=e297]:
+                  - generic [ref=e298]:
+                    - heading "Croûtons à l'ail" [level=3] [ref=e299]
+                    - separator [ref=e300]
+                    - generic [ref=e307] [cursor=pointer]:
+                      - img [ref=e309]
+                      - checkbox [ref=e311]
+                  - generic [ref=e313] [cursor=pointer]:
+                    - generic [ref=e319]:
+                      - img [ref=e321]
+                      - checkbox [ref=e323]
+                    - generic [ref=e326]:
+                      - paragraph [ref=e328]: "1"
+                      - text: goutte
+                      - paragraph [ref=e330]: sans gluten, en cubes
+                      - paragraph [ref=e332]: 4 tasses/1 L
+                  - generic [ref=e334] [cursor=pointer]:
+                    - generic [ref=e340]:
+                      - img [ref=e342]
+                      - checkbox [ref=e344]
+                    - generic [ref=e347]:
+                      - paragraph [ref=e349]: "3"
+                      - text: cuillères à soupe
+                      - paragraph [ref=e351]: huile d'olive
+                  - generic [ref=e353] [cursor=pointer]:
+                    - generic [ref=e359]:
+                      - img [ref=e361]
+                      - checkbox [ref=e363]
+                    - generic [ref=e366]:
+                      - paragraph [ref=e368]: "2"
+                      - text: gousses
+                      - paragraph [ref=e370]: d'ail
+                      - paragraph [ref=e372]: hachées
+                  - generic [ref=e374] [cursor=pointer]:
+                    - generic [ref=e380]:
+                      - img [ref=e382]
+                      - checkbox [ref=e384]
+                    - generic [ref=e387]:
+                      - paragraph [ref=e389]:
+                        - superscript [ref=e390]: "1"
+                        - text: ⁄
+                        - subscript [ref=e391]: "4"
+                      - text: cuillère à thé
+                      - paragraph [ref=e393]: de sel
+                  - generic [ref=e394]:
+                    - heading "Sauce crémeuse au citron" [level=3] [ref=e395]
+                    - separator [ref=e396]
+                    - generic [ref=e403] [cursor=pointer]:
+                      - img [ref=e405]
+                      - checkbox [ref=e407]
+                  - generic [ref=e409] [cursor=pointer]:
+                    - generic [ref=e415]:
+                      - img [ref=e417]
+                      - checkbox [ref=e419]
+                    - generic [ref=e422]:
+                      - paragraph [ref=e424]: "3"
+                      - text: cuillères à soupe
+                      - paragraph [ref=e426]: huile d'olive
+                  - generic [ref=e428] [cursor=pointer]:
+                    - generic [ref=e434]:
+                      - img [ref=e436]
+                      - checkbox [ref=e438]
+                    - generic [ref=e441]:
+                      - paragraph [ref=e443]: "2"
+                      - paragraph [ref=e445]: blancs
+                      - paragraph [ref=e447]: émincés finement
+                  - generic [ref=e449] [cursor=pointer]:
+                    - generic [ref=e455]:
+                      - img [ref=e457]
+                      - checkbox [ref=e459]
+                    - generic [ref=e462]:
+                      - paragraph [ref=e464]: "1"
+                      - text: cuillère à soupe
+                      - paragraph [ref=e466]: Origan séché
+                  - generic [ref=e468] [cursor=pointer]:
+                    - generic [ref=e474]:
+                      - img [ref=e476]
+                      - checkbox [ref=e478]
+                    - generic [ref=e481]:
+                      - paragraph [ref=e483]:
+                        - superscript [ref=e484]: "1"
+                        - text: ⁄
+                        - subscript [ref=e485]: "4"
+                      - text: cuillère à thé
+                      - paragraph [ref=e487]: Flocons de piment fort
+                  - generic [ref=e489] [cursor=pointer]:
+                    - generic [ref=e495]:
+                      - img [ref=e497]
+                      - checkbox [ref=e499]
+                    - generic [ref=e502]:
+                      - paragraph [ref=e504]: "2"
+                      - text: gousses
+                      - paragraph [ref=e506]: d'ail
+                      - paragraph [ref=e508]: hachées
+                  - generic [ref=e510] [cursor=pointer]:
+                    - generic [ref=e516]:
+                      - img [ref=e518]
+                      - checkbox [ref=e520]
+                    - generic [ref=e523]:
+                      - paragraph [ref=e525]: "2"
+                      - text: cuillères à thé
+                      - paragraph [ref=e527]: de miel
+                  - generic [ref=e529] [cursor=pointer]:
+                    - generic [ref=e535]:
+                      - img [ref=e537]
+                      - checkbox [ref=e539]
+                    - generic [ref=e542]:
+                      - paragraph [ref=e544]:
+                        - text: "2"
+                        - superscript [ref=e545]: "1"
+                        - text: ⁄
+                        - subscript [ref=e546]: "2"
+                      - text: tasses
+                      - paragraph [ref=e548]: (500 ml) Bouillon de légumes
+                  - generic [ref=e550] [cursor=pointer]:
+                    - generic [ref=e556]:
+                      - img [ref=e558]
+                      - checkbox [ref=e560]
+                    - generic [ref=e563]:
+                      - paragraph [ref=e565]: "1"
+                      - paragraph [ref=e567]: thé (5 ml) de sel
+                      - paragraph [ref=e569]: à
+                  - generic [ref=e571] [cursor=pointer]:
+                    - generic [ref=e577]:
+                      - img [ref=e579]
+                      - checkbox [ref=e581]
+                    - generic [ref=e584]:
+                      - paragraph [ref=e586]: "1"
+                      - text: tasse
+                      - paragraph [ref=e588]: (250 ml) de noix de cajou non rêties et non salées
+                  - generic [ref=e590] [cursor=pointer]:
+                    - generic [ref=e596]:
+                      - img [ref=e598]
+                      - checkbox [ref=e600]
+                    - paragraph [ref=e605]: dans l’eau bouillante
+                  - generic [ref=e607] [cursor=pointer]:
+                    - generic [ref=e613]:
+                      - img [ref=e615]
+                      - checkbox [ref=e617]
+                    - generic [ref=e620]:
+                      - paragraph [ref=e622]: "2"
+                      - text: cuillères à soupe
+                      - paragraph [ref=e624]: levure nutritionnelle
+                  - generic [ref=e626] [cursor=pointer]:
+                    - generic [ref=e632]:
+                      - img [ref=e634]
+                      - checkbox [ref=e636]
+                    - paragraph [ref=e641]: Zeste de 1 petit citron bien lavé
+                  - generic [ref=e643] [cursor=pointer]:
+                    - generic [ref=e649]:
+                      - img [ref=e651]
+                      - checkbox [ref=e653]
+                    - generic [ref=e656]:
+                      - paragraph [ref=e658]: "2"
+                      - text: cuillères à soupe
+                      - paragraph [ref=e660]: Jus de citron
+                  - generic [ref=e662] [cursor=pointer]:
+                    - generic [ref=e668]:
+                      - img [ref=e670]
+                      - checkbox [ref=e672]
+                    - paragraph [ref=e677]: Poivre, au goût
+                  - generic [ref=e679] [cursor=pointer]:
+                    - generic [ref=e685]:
+                      - img [ref=e687]
+                      - checkbox [ref=e689]
+                    - generic [ref=e692]:
+                      - paragraph [ref=e694]: "450"
+                      - text: grammes
+                      - paragraph [ref=e696]: de spaghettis sans gluten
+                  - generic [ref=e697]:
+                    - heading "Garniture" [level=3] [ref=e698]
+                    - separator [ref=e699]
+                    - generic [ref=e706] [cursor=pointer]:
+                      - img [ref=e708]
+                      - checkbox [ref=e710]
+                  - generic [ref=e712] [cursor=pointer]:
+                    - generic [ref=e718]:
+                      - img [ref=e720]
+                      - checkbox [ref=e722]
+                    - generic [ref=e725]:
+                      - paragraph [ref=e727]: "1"
+                      - text: tasse
+                      - paragraph [ref=e729]: persil frais haché grossièrement
+                      - paragraph [ref=e731]: de
+                  - generic [ref=e733] [cursor=pointer]:
+                    - generic [ref=e739]:
+                      - img [ref=e741]
+                      - checkbox [ref=e743]
+                    - generic [ref=e746]:
+                      - paragraph [ref=e748]:
+                        - superscript [ref=e749]: "1"
+                        - text: ⁄
+                        - subscript [ref=e750]: "3"
+                      - text: tasse
+                      - paragraph [ref=e752]: (80 ml) de noix de pin grillées
+                  - generic [ref=e754] [cursor=pointer]:
+                    - generic [ref=e760]:
+                      - img [ref=e762]
+                      - checkbox [ref=e764]
+                    - paragraph [ref=e769]: Zeste de 1 petit citron bien lavé
+              - generic [ref=e770]:
+                - generic [ref=e771]:
+                  - generic [ref=e772]:
+                    - heading "Instructions" [level=2] [ref=e773]
+                    - button "Cook Mode" [ref=e774] [cursor=pointer]:
+                      - generic [ref=e775]:
+                        - img [ref=e777]
+                        - text: Cook Mode
+                  - generic [ref=e779]:
+                    - generic [ref=e781] [cursor=pointer]:
+                      - generic [ref=e784]: "Step: 1"
+                      - paragraph [ref=e790]:
+                        - strong [ref=e791]: "Croûtons à l’ail:"
+                        - text: Préchauffer le four à 400 °F ex placer la grille au centre.
+                    - generic [ref=e793] [cursor=pointer]:
+                      - generic [ref=e796]: "Step: 2"
+                      - paragraph [ref=e802]: Dans un bol, mélanger tous les ingrédients des croûtons.
+                    - generic [ref=e804] [cursor=pointer]:
+                      - generic [ref=e807]: "Step: 3"
+                      - paragraph [ref=e813]: Cuire au four 12 minutes ou jusqu'à ce que les croûtons soient bien dorés, Laisser tiédir les croûtons et les broyer grossièrement. Réserver.
+                    - generic [ref=e815] [cursor=pointer]:
+                      - generic [ref=e818]: "Step: 4"
+                      - paragraph [ref=e824]:
+                        - strong [ref=e825]: "Sauce crémeuse au citron:"
+                        - text: Dans une grande poële antiadhésive, chauffer l'huile à feu moyen et faire revenir les oignons, l'origan et les flocons de piment fort de 10 à 12 minutes, en brassant souvent, jusqu’à ce que les oignons soient bien caramélisés.
+                    - generic [ref=e827] [cursor=pointer]:
+                      - generic [ref=e830]: "Step: 5"
+                      - paragraph [ref=e836]: Ajouter l'ail et le miel, et cuire encore 1 minute en brassant.
+                    - generic [ref=e838] [cursor=pointer]:
+                      - generic [ref=e841]: "Step: 6"
+                      - paragraph [ref=e847]: Verser le bouillon, ajouter le sel et porter à ébullition. Retirer
+                    - generic [ref=e849] [cursor=pointer]:
+                      - generic [ref=e852]: "Step: 7"
+                      - paragraph [ref=e858]: Bien égoutter les noix de cajou qui ont été mises à tremper et les déposer dans le mélangeur. Ajouter la levure nutiitionnelle, le zeste et le jus de citron, et mixer jusqu’à l'obtention d’une texture très lisse, Rectifier l’assaisonnement au besoin et réserver.
+                    - generic [ref=e860] [cursor=pointer]:
+                      - generic [ref=e863]: "Step: 8"
+                      - paragraph [ref=e869]: Dans une grande casserole d’eau bouillante salée, cuire les pâtes selon le temps indiqué sur l'emballage. Prélever L tasse
+                    - generic [ref=e871] [cursor=pointer]:
+                      - generic [ref=e874]: "Step: 9"
+                      - paragraph [ref=e880]: Répartir les pâtes dans des assiettes et garnir des croûtons broyés, du persil, des noix de pin et du zeste de citron.
+                  - separator [ref=e881]
+                - generic [ref=e884]:
+                  - generic [ref=e885]: Categories
+                  - separator [ref=e886]
+                  - generic [ref=e890] [cursor=pointer]: Pâtisserie
+                - generic [ref=e891]:
+                  - heading "Note" [level=2] [ref=e892]
+                  - paragraph [ref=e898]: Il restera assez de sauce pour un autre repas pour deux.
+                  - paragraph [ref=e904]: Ce sont les noix de cajou qui rendent la sauce citronnée
+                  - paragraph [ref=e910]:
+                    - img "k-pate-cremeuse-citron.png" [ref=e911]
+        - generic [ref=e914]:
+          - generic [ref=e915]:
+            - img [ref=e917]
+            - text: Comments
+          - separator [ref=e919]
+          - generic [ref=e920]:
+            - generic [ref=e921]:
+              - img "d70a69ea-823e-41c7-a864-312773359059" [ref=e923]
+              - textbox "Join the Conversation" [ref=e928]
+            - generic [ref=e929]:
+              - button "Submit" [disabled]:
+                - generic:
+                  - generic:
+                    - img
+                  - text: Submit
+  - generic:
+    - tooltip
+    - tooltip
+    - tooltip
+    - tooltip
+    - tooltip
+    - tooltip
+    - tooltip
+    - tooltip
+    - tooltip
+    - tooltip
+    - tooltip
+    - tooltip
+    - tooltip
+    - tooltip
+    - tooltip
+    - tooltip
+    - tooltip
+    - tooltip

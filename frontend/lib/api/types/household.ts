@@ -556,6 +556,7 @@ export interface ShoppingListItemBase {
   foodId?: string | null;
   labelId?: string | null;
   unitId?: string | null;
+  providerItemId?: string | null;
   extras?: {
     [k: string]: unknown;
   } | null;
@@ -573,6 +574,7 @@ export interface ShoppingListItemCreate {
   foodId?: string | null;
   labelId?: string | null;
   unitId?: string | null;
+  providerItemId?: string | null;
   extras?: {
     [k: string]: unknown;
   } | null;
@@ -598,6 +600,7 @@ export interface ShoppingListItemOut {
   foodId?: string | null;
   labelId?: string | null;
   unitId?: string | null;
+  providerItemId?: string | null;
   extras?: {
     [k: string]: unknown;
   } | null;
@@ -638,6 +641,7 @@ export interface ShoppingListItemUpdate {
   foodId?: string | null;
   labelId?: string | null;
   unitId?: string | null;
+  providerItemId?: string | null;
   extras?: {
     [k: string]: unknown;
   } | null;
@@ -656,6 +660,7 @@ export interface ShoppingListItemUpdateBulk {
   foodId?: string | null;
   labelId?: string | null;
   unitId?: string | null;
+  providerItemId?: string | null;
   extras?: {
     [k: string]: unknown;
   } | null;

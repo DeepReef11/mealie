@@ -1,0 +1,121 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - banner [ref=e5]:
+      - generic [ref=e6]:
+        - button [ref=e7] [cursor=pointer]:
+          - img [ref=e10]
+        - link [ref=e12] [cursor=pointer]:
+          - /url: /g/home
+          - button [ref=e13]:
+            - img [ref=e16]
+        - generic [ref=e20] [cursor=pointer]: Mealie
+        - generic [ref=e23]:
+          - generic [ref=e25]:
+            - img [ref=e28]
+            - textbox "Press '/'" [ref=e31]
+          - alert [ref=e32]
+        - button "Logout" [ref=e34] [cursor=pointer]:
+          - generic [ref=e35]:
+            - img [ref=e37]
+            - text: Logout
+    - navigation [ref=e39]:
+      - generic [ref=e40]:
+        - link "22ef6e92-23ab-432d-a371-c4058f016b18 Change Me Favorite Recipes" [ref=e41] [cursor=pointer]:
+          - /url: /user/profile
+          - generic [ref=e43]:
+            - img "22ef6e92-23ab-432d-a371-c4058f016b18" [ref=e45]
+            - generic [ref=e46]:
+              - generic [ref=e47]: Change Me
+              - link "Favorite Recipes" [ref=e49]:
+                - /url: /user/22ef6e92-23ab-432d-a371-c4058f016b18/favorites
+                - generic [ref=e50]:
+                  - img [ref=e52]
+                  - text: Favorite Recipes
+        - separator [ref=e54]
+        - button "Create" [ref=e55] [cursor=pointer]:
+          - generic [ref=e56]:
+            - img [ref=e58]
+            - text: Create
+        - list [ref=e60]:
+          - listitem [ref=e62] [cursor=pointer]:
+            - img [ref=e65]
+            - generic [ref=e68]: Recipes
+          - listitem [ref=e70] [cursor=pointer]:
+            - img [ref=e73]
+            - generic [ref=e76]: Recipe Finder
+          - listitem [ref=e78] [cursor=pointer]:
+            - img [ref=e81]
+            - generic [ref=e84]: Meal Planner
+          - listitem [ref=e86] [cursor=pointer]:
+            - img [ref=e89]
+            - generic [ref=e92]: Shopping Lists
+          - listitem [ref=e94] [cursor=pointer]:
+            - img [ref=e97]
+            - generic [ref=e100]: Timeline
+          - listitem [ref=e102] [cursor=pointer]:
+            - img [ref=e105]
+            - generic [ref=e108]: Cookbooks
+          - listitem [ref=e111] [cursor=pointer]:
+            - img [ref=e114]
+            - generic [ref=e117]: Organizers
+            - img [ref=e120]
+      - list [ref=e123]:
+        - listitem [ref=e124] [cursor=pointer]:
+          - img [ref=e127]
+          - generic [ref=e130]: Settings
+    - main [ref=e131]:
+      - generic [ref=e133]:
+        - generic [ref=e134]:
+          - generic [ref=e135]:
+            - generic [ref=e137]:
+              - link "All Lists" [ref=e140] [cursor=pointer]:
+                - /url: /shopping-lists?disableRedirect=true
+                - generic [ref=e141]:
+                  - img [ref=e143]
+                  - text: All Lists
+              - generic [ref=e146]:
+                - button [ref=e147] [cursor=pointer]:
+                  - img [ref=e150]
+                - button [ref=e152] [cursor=pointer]:
+                  - img [ref=e155]
+                - button [ref=e157] [cursor=pointer]:
+                  - img [ref=e160]
+            - heading "Final Test" [level=2] [ref=e162]
+            - heading [level=3]
+          - separator [ref=e163]
+        - generic [ref=e164]:
+          - button "Add" [ref=e166] [cursor=pointer]:
+            - generic [ref=e167]:
+              - img [ref=e169]
+              - text: Add
+          - generic [ref=e172]:
+            - button "No Label" [expanded] [ref=e174] [cursor=pointer]:
+              - text: No Label
+              - img [ref=e178]
+            - generic [ref=e184]:
+              - generic [ref=e186]:
+                - generic [ref=e191]:
+                  - img [ref=e193]
+                  - checkbox [ref=e195] [cursor=pointer]
+                - generic [ref=e197]:
+                  - paragraph [ref=e199]: "5"
+                  - paragraph [ref=e201]: Brown Rice
+              - generic [ref=e203]:
+                - button [ref=e204] [cursor=pointer]:
+                  - img [ref=e207]
+                - button [ref=e209]:
+                  - img [ref=e212]
+          - button "2 items checked" [ref=e216] [cursor=pointer]:
+            - generic [ref=e218]:
+              - generic [ref=e219]: 2 items checked
+              - generic [ref=e221]:
+                - button [ref=e222]:
+                  - img [ref=e225]
+                - button [ref=e227]:
+                  - img [ref=e230]
+            - img [ref=e234]
+  - generic:
+    - tooltip
+    - tooltip
+    - tooltip
+    - tooltip
