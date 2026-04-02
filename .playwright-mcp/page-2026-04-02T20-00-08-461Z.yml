@@ -1,0 +1,238 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]: Keyboard navigation help
+    - generic [ref=e5]:
+      - link "Skip to app navigation" [ref=e6] [cursor=pointer]:
+        - /url: "#app-navigation-vue"
+        - generic [ref=e8]: Skip to app navigation
+      - link "Skip to main content" [ref=e9] [cursor=pointer]:
+        - /url: "#app-content-vue"
+        - generic [ref=e11]: Skip to main content
+  - banner [ref=e12]:
+    - generic [ref=e13]:
+      - link "Go to Dashboard" [ref=e14] [cursor=pointer]:
+        - /url: /
+      - navigation "Applications menu" [ref=e16]:
+        - list "Apps" [ref=e17]:
+          - listitem [ref=e18]:
+            - link "Dashboard" [ref=e19] [cursor=pointer]:
+              - /url: /apps/dashboard/
+              - img [ref=e20]
+              - generic [ref=e21]: Dashboard
+          - listitem [ref=e22]:
+            - link "Files" [ref=e23] [cursor=pointer]:
+              - /url: /apps/files/
+              - img [ref=e24]
+              - generic [ref=e25]: Files
+          - listitem [ref=e26]:
+            - link "Photos" [ref=e27] [cursor=pointer]:
+              - /url: /apps/photos/
+              - img [ref=e28]
+              - generic [ref=e29]: Photos
+          - listitem [ref=e30]:
+            - link "Activity" [ref=e31] [cursor=pointer]:
+              - /url: /apps/activity/
+              - img [ref=e32]
+              - generic [ref=e33]: Activity
+          - listitem [ref=e34]:
+            - link "Tasks" [ref=e35] [cursor=pointer]:
+              - /url: /apps/tasks/
+              - img [ref=e36]
+              - generic [ref=e37]: Tasks
+    - generic [ref=e38]:
+      - button "Unified search" [ref=e41] [cursor=pointer]:
+        - img [ref=e44]:
+          - img [ref=e45]
+      - generic "Notifications" [ref=e48]:
+        - button "Notifications" [ref=e49] [cursor=pointer]:
+          - img [ref=e102]
+      - button "Search contacts" [ref=e56] [cursor=pointer]:
+        - img [ref=e59]:
+          - img [ref=e60]
+      - navigation "Settings menu" [ref=e62]:
+        - button "Settings menu" [ref=e63] [cursor=pointer]:
+          - img [ref=e67]:
+            - img [ref=e68]
+        - generic [ref=e70]: Avatar of admin — Online
+  - generic [ref=e72]:
+    - generic [ref=e73]:
+      - navigation [ref=e74]:
+        - list [ref=e75]:
+          - listitem [ref=e105]:
+            - generic [ref=e106]:
+              - link [ref=e107] [cursor=pointer]:
+                - /url: /apps/tasks/collections/all
+                - img [ref=e109]:
+                  - img [ref=e110]
+                - generic [ref=e112]: All
+              - generic [ref=e115]: "1"
+          - listitem [ref=e116]:
+            - generic [ref=e117]:
+              - link [ref=e118] [cursor=pointer]:
+                - /url: /apps/tasks/collections/current
+                - img [ref=e120]:
+                  - img [ref=e121]
+                - generic [ref=e123]: Current
+              - generic [ref=e126]: "1"
+          - listitem [ref=e128]:
+            - generic [ref=e129]:
+              - link [ref=e130] [cursor=pointer]:
+                - /url: /apps/tasks/calendars/tasks-1
+                - generic [ref=e134]: Tasks
+              - generic [ref=e135]:
+                - generic [ref=e136]:
+                  - button [ref=e137] [cursor=pointer]:
+                    - img [ref=e140]:
+                      - img [ref=e141]
+                  - generic [ref=e143]: "1"
+                - button [ref=e146] [cursor=pointer]:
+                  - img [ref=e149]:
+                    - img [ref=e150]
+          - listitem [ref=e76]:
+            - link [ref=e78] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e80]:
+                - img [ref=e81]
+              - generic [ref=e83]: Add List…
+          - listitem [ref=e152]:
+            - link [ref=e154] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e156]:
+                - img [ref=e157]
+              - generic [ref=e159]: Trash bin
+        - button [ref=e86] [cursor=pointer]:
+          - generic [ref=e87]:
+            - img [ref=e89]:
+              - img [ref=e90]
+            - generic [ref=e92]: Tasks settings
+      - button "Open navigation" [ref=e94] [cursor=pointer]:
+        - img [ref=e97]:
+          - img [ref=e98]
+    - main [ref=e100]:
+      - generic [ref=e160]:
+        - generic [ref=e161]:
+          - generic [ref=e164]:
+            - textbox "Add a task to \"Tasks\"…" [ref=e165] [cursor=pointer]
+            - generic: Add a task to "Tasks"…
+            - img [ref=e167]:
+              - img [ref=e168]
+          - generic "Active filter" [ref=e170]:
+            - button "Actions" [ref=e172] [cursor=pointer]:
+              - img [ref=e176]:
+                - img [ref=e177]
+          - generic "Change sort order" [ref=e179]:
+            - button "Actions" [ref=e181] [cursor=pointer]:
+              - generic [ref=e184]:
+                - img [ref=e185]:
+                  - img [ref=e186]
+                - img [ref=e188]:
+                  - img [ref=e189]
+        - list [ref=e193]:
+          - listitem [ref=e194]:
+            - generic [ref=e195]:
+              - generic [ref=e196]:
+                - checkbox "Task is not completed" [ref=e197] [cursor=pointer]
+                - img [ref=e199] [cursor=pointer]:
+                  - img [ref=e200]
+              - generic [ref=e204]: "[Mealie] test2"
+              - generic [ref=e205]:
+                - button "Actions" [ref=e208] [cursor=pointer]:
+                  - img [ref=e211]:
+                    - img [ref=e212]
+                - button "Toggle starred" [ref=e214] [cursor=pointer]:
+                  - img [ref=e217]:
+                    - img [ref=e218]
+            - generic:
+              - list
+    - complementary [ref=e228]:
+      - generic [ref=e229]:
+        - generic [ref=e231]:
+          - generic [ref=e233]:
+            - checkbox "Task is not completed" [ref=e234] [cursor=pointer]
+            - img [ref=e236] [cursor=pointer]:
+              - img [ref=e237]
+          - generic [ref=e239]:
+            - generic [ref=e240]:
+              - heading "[Mealie] test2" [level=2] [ref=e241]
+              - button "Actions" [ref=e244] [cursor=pointer]:
+                - img [ref=e247]:
+                  - img [ref=e248]
+            - paragraph [ref=e250]: Last modified today at 15:59
+        - button "Close sidebar" [ref=e251] [cursor=pointer]:
+          - img [ref=e254]:
+            - img [ref=e255]
+        - generic [ref=e257]:
+          - generic [ref=e259] [cursor=pointer]:
+            - img [ref=e261]:
+              - img [ref=e262]
+            - generic [ref=e264]: Set start date
+          - generic [ref=e266] [cursor=pointer]:
+            - img [ref=e268]:
+              - img [ref=e269]
+            - generic [ref=e271]: Set due date
+          - combobox "Search for option" [ref=e274]:
+            - generic [ref=e275]:
+              - generic [ref=e279] [cursor=pointer]: Tasks
+              - searchbox [disabled] [ref=e280]
+            - img [ref=e283] [cursor=pointer]
+      - generic [ref=e285]:
+        - tablist [ref=e286]:
+          - tab "Details" [selected] [ref=e287]:
+            - img [ref=e289]:
+              - img [ref=e290]
+            - generic [ref=e292]: Details
+          - tab "Notes" [ref=e293] [cursor=pointer]:
+            - img [ref=e295]:
+              - img [ref=e296]
+            - generic [ref=e298]: Notes
+        - tabpanel "Details" [ref=e300]:
+          - heading "Details" [level=3] [ref=e301]
+          - generic [ref=e302]:
+            - combobox "Search for option" [ref=e305] [cursor=pointer]:
+              - generic [ref=e306]:
+                - generic [ref=e308]:
+                  - img [ref=e310]:
+                    - img [ref=e311]
+                  - generic [ref=e313]: When shared show full event
+                - searchbox [ref=e314]
+              - img [ref=e317]
+            - combobox "Search for option" [ref=e321] [cursor=pointer]:
+              - generic [ref=e322]:
+                - generic [ref=e324]:
+                  - img [ref=e326]:
+                    - img [ref=e327]
+                  - generic [ref=e329]: Needs action
+                - searchbox [ref=e330]
+              - img [ref=e333]
+            - generic [ref=e336] [cursor=pointer]:
+              - img [ref=e338]:
+                - img [ref=e339]
+              - generic [ref=e341]: No priority assigned
+            - generic [ref=e343] [cursor=pointer]:
+              - img [ref=e345]:
+                - img [ref=e346]
+              - generic [ref=e348]: 0 % completed
+            - generic [ref=e350] [cursor=pointer]:
+              - img [ref=e352]:
+                - img [ref=e353]
+              - generic [ref=e355]: Set a location
+            - generic [ref=e357] [cursor=pointer]:
+              - img [ref=e359]:
+                - img [ref=e360]
+              - generic [ref=e362]: Set a URL
+            - generic [ref=e363]:
+              - img [ref=e365]:
+                - img [ref=e366]
+              - combobox "Search for option" [ref=e369]:
+                - searchbox [ref=e371] [cursor=pointer]
+                - img [ref=e374] [cursor=pointer]
+            - generic [ref=e376]:
+              - img [ref=e378]:
+                - img [ref=e379]
+              - generic [ref=e382]:
+                - paragraph [ref=e384]: No reminders
+                - button "Add reminder" [ref=e387] [cursor=pointer]:
+                  - generic [ref=e388]:
+                    - img [ref=e390]:
+                      - img [ref=e391]
+                    - generic [ref=e393]: Add reminder
