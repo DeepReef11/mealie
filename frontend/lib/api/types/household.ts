@@ -58,8 +58,6 @@ export interface GroupEventNotifierOptions {
   dataExport?: boolean;
   dataImport?: boolean;
   mealplanEntryCreated?: boolean;
-  mealplanEntryUpdated?: boolean;
-  mealplanEntryDeleted?: boolean;
   shoppingListCreated?: boolean;
   shoppingListUpdated?: boolean;
   shoppingListDeleted?: boolean;
@@ -87,8 +85,6 @@ export interface GroupEventNotifierOptionsOut {
   dataExport?: boolean;
   dataImport?: boolean;
   mealplanEntryCreated?: boolean;
-  mealplanEntryUpdated?: boolean;
-  mealplanEntryDeleted?: boolean;
   shoppingListCreated?: boolean;
   shoppingListUpdated?: boolean;
   shoppingListDeleted?: boolean;
@@ -117,8 +113,6 @@ export interface GroupEventNotifierOptionsSave {
   dataExport?: boolean;
   dataImport?: boolean;
   mealplanEntryCreated?: boolean;
-  mealplanEntryUpdated?: boolean;
-  mealplanEntryDeleted?: boolean;
   shoppingListCreated?: boolean;
   shoppingListUpdated?: boolean;
   shoppingListDeleted?: boolean;
@@ -538,6 +532,7 @@ export interface ShoppingListItemBase {
   foodId?: string | null;
   labelId?: string | null;
   unitId?: string | null;
+  providerItemId?: string | null;
   extras?: {
     [k: string]: unknown;
   } | null;
@@ -555,6 +550,7 @@ export interface ShoppingListItemCreate {
   foodId?: string | null;
   labelId?: string | null;
   unitId?: string | null;
+  providerItemId?: string | null;
   extras?: {
     [k: string]: unknown;
   } | null;
@@ -580,6 +576,7 @@ export interface ShoppingListItemOut {
   foodId?: string | null;
   labelId?: string | null;
   unitId?: string | null;
+  providerItemId?: string | null;
   extras?: {
     [k: string]: unknown;
   } | null;
@@ -620,6 +617,7 @@ export interface ShoppingListItemUpdate {
   foodId?: string | null;
   labelId?: string | null;
   unitId?: string | null;
+  providerItemId?: string | null;
   extras?: {
     [k: string]: unknown;
   } | null;
@@ -638,6 +636,7 @@ export interface ShoppingListItemUpdateBulk {
   foodId?: string | null;
   labelId?: string | null;
   unitId?: string | null;
+  providerItemId?: string | null;
   extras?: {
     [k: string]: unknown;
   } | null;

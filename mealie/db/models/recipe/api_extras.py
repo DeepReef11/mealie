@@ -5,13 +5,19 @@ from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.db.models._model_utils.guid import GUID
 
 
+_SENTINEL = object()
+
+
 def api_extras(func):
     """Decorator function to unpack the extras into a dict; requires an "extras" column"""
 
     def wrapper(*args, **kwargs):
-        extras = kwargs.pop("extras", None)
+        extras = kwargs.pop("extras", _SENTINEL)
 
-        if extras is None:
+        if extras is _SENTINEL:
+            # extras not provided at all — don't touch existing relationship
+            return func(*args, **kwargs)
+        elif extras is None:
             extras = []
         else:
             extras = [{"key": key, "value": value} for key, value in extras.items()]
