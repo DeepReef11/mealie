@@ -806,10 +806,6 @@
     "set-new-time": "Set New Time",
     "settings-update-failed": "Settings update failed",
     "settings-updated": "Settings updated",
-    "list-providers": "List Providers",
-    "list-providers-description": "Connect your shopping lists with external task services for bidirectional sync.",
-    "provider-configuration": "Provider Configuration",
-    "list-provider-type": "List Provider",
     "site-settings": "Site Settings",
     "theme": {
       "accent": "Accent",

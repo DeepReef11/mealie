@@ -1,7 +1,7 @@
 """add provider_item_id to shopping list items
 
 Revision ID: d4e5f6a7b8c9
-Revises: c1d2e3f4a5b6
+Revises: a39c7f1826e3
 Create Date: 2026-04-02 00:00:00.000000
 
 """
@@ -11,7 +11,7 @@ from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = "d4e5f6a7b8c9"
-down_revision: str | None = "c1d2e3f4a5b6"
+down_revision: str | None = "a39c7f1826e3"
 branch_labels: str | tuple[str, ...] | None = None
 depends_on: str | tuple[str, ...] | None = None
 

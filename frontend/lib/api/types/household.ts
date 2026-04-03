@@ -22,14 +22,6 @@ export interface CreateHouseholdPreferences {
   recipeShowAssets?: boolean;
   recipeLandscapeView?: boolean;
   recipeDisableComments?: boolean;
-  listProviderType?: string | null;
-  nextcloudUrl?: string | null;
-  nextcloudUsername?: string | null;
-  nextcloudPassword?: string | null;
-  nextcloudTaskList?: string | null;
-  nextcloudVerifySsl?: boolean;
-  todoistApiToken?: string | null;
-  todoistProject?: string | null;
 }
 export interface CreateInviteToken {
   uses: number;
@@ -208,14 +200,6 @@ export interface ReadHouseholdPreferences {
   recipeShowAssets?: boolean;
   recipeLandscapeView?: boolean;
   recipeDisableComments?: boolean;
-  listProviderType?: string | null;
-  nextcloudUrl?: string | null;
-  nextcloudUsername?: string | null;
-  nextcloudPassword?: string | null;
-  nextcloudTaskList?: string | null;
-  nextcloudVerifySsl?: boolean;
-  todoistApiToken?: string | null;
-  todoistProject?: string | null;
   id: string;
 }
 export interface HouseholdUserSummary {
@@ -293,14 +277,6 @@ export interface SaveHouseholdPreferences {
   recipeShowAssets?: boolean;
   recipeLandscapeView?: boolean;
   recipeDisableComments?: boolean;
-  listProviderType?: string | null;
-  nextcloudUrl?: string | null;
-  nextcloudUsername?: string | null;
-  nextcloudPassword?: string | null;
-  nextcloudTaskList?: string | null;
-  nextcloudVerifySsl?: boolean;
-  todoistApiToken?: string | null;
-  todoistProject?: string | null;
   householdId: string;
 }
 export interface SaveInviteToken {
@@ -799,14 +775,6 @@ export interface UpdateHouseholdPreferences {
   recipeShowAssets?: boolean;
   recipeLandscapeView?: boolean;
   recipeDisableComments?: boolean;
-  listProviderType?: string | null;
-  nextcloudUrl?: string | null;
-  nextcloudUsername?: string | null;
-  nextcloudPassword?: string | null;
-  nextcloudTaskList?: string | null;
-  nextcloudVerifySsl?: boolean;
-  todoistApiToken?: string | null;
-  todoistProject?: string | null;
 }
 export interface RecipeIngredientBase {
   quantity?: number | null;
