@@ -173,3 +173,10 @@ dev/code-generation/openapi.json
 .task/*
 .dev.env
 frontend/eslint.config.deprecated.js
+
+# AI/dev tools
+.claude/
+.playwright-mcp/
+CLAUDE.md
+*.png
+tmp/
