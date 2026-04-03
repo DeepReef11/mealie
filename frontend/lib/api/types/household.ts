@@ -22,12 +22,6 @@ export interface CreateHouseholdPreferences {
   recipeShowAssets?: boolean;
   recipeLandscapeView?: boolean;
   recipeDisableComments?: boolean;
-  nextcloudEnabled?: boolean;
-  nextcloudUrl?: string | null;
-  nextcloudUsername?: string | null;
-  nextcloudPassword?: string | null;
-  nextcloudTaskList?: string | null;
-  nextcloudVerifySsl?: boolean;
 }
 export interface CreateInviteToken {
   uses: number;
@@ -206,12 +200,6 @@ export interface ReadHouseholdPreferences {
   recipeShowAssets?: boolean;
   recipeLandscapeView?: boolean;
   recipeDisableComments?: boolean;
-  nextcloudEnabled?: boolean;
-  nextcloudUrl?: string | null;
-  nextcloudUsername?: string | null;
-  nextcloudPassword?: string | null;
-  nextcloudTaskList?: string | null;
-  nextcloudVerifySsl?: boolean;
   id: string;
 }
 export interface HouseholdUserSummary {
@@ -289,12 +277,6 @@ export interface SaveHouseholdPreferences {
   recipeShowAssets?: boolean;
   recipeLandscapeView?: boolean;
   recipeDisableComments?: boolean;
-  nextcloudEnabled?: boolean;
-  nextcloudUrl?: string | null;
-  nextcloudUsername?: string | null;
-  nextcloudPassword?: string | null;
-  nextcloudTaskList?: string | null;
-  nextcloudVerifySsl?: boolean;
   householdId: string;
 }
 export interface SaveInviteToken {
@@ -550,6 +532,7 @@ export interface ShoppingListItemBase {
   foodId?: string | null;
   labelId?: string | null;
   unitId?: string | null;
+  providerItemId?: string | null;
   extras?: {
     [k: string]: unknown;
   } | null;
@@ -567,6 +550,7 @@ export interface ShoppingListItemCreate {
   foodId?: string | null;
   labelId?: string | null;
   unitId?: string | null;
+  providerItemId?: string | null;
   extras?: {
     [k: string]: unknown;
   } | null;
@@ -592,6 +576,7 @@ export interface ShoppingListItemOut {
   foodId?: string | null;
   labelId?: string | null;
   unitId?: string | null;
+  providerItemId?: string | null;
   extras?: {
     [k: string]: unknown;
   } | null;
@@ -632,6 +617,7 @@ export interface ShoppingListItemUpdate {
   foodId?: string | null;
   labelId?: string | null;
   unitId?: string | null;
+  providerItemId?: string | null;
   extras?: {
     [k: string]: unknown;
   } | null;
@@ -650,6 +636,7 @@ export interface ShoppingListItemUpdateBulk {
   foodId?: string | null;
   labelId?: string | null;
   unitId?: string | null;
+  providerItemId?: string | null;
   extras?: {
     [k: string]: unknown;
   } | null;
@@ -788,12 +775,6 @@ export interface UpdateHouseholdPreferences {
   recipeShowAssets?: boolean;
   recipeLandscapeView?: boolean;
   recipeDisableComments?: boolean;
-  nextcloudEnabled?: boolean;
-  nextcloudUrl?: string | null;
-  nextcloudUsername?: string | null;
-  nextcloudPassword?: string | null;
-  nextcloudTaskList?: string | null;
-  nextcloudVerifySsl?: boolean;
 }
 export interface RecipeIngredientBase {
   quantity?: number | null;

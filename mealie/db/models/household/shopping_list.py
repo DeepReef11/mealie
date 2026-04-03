@@ -87,6 +87,9 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
     )
     model_config = ConfigDict(exclude={"label", "food", "unit"})
 
+    # External provider tracking (e.g. Nextcloud, Todoist task UID)
+    provider_item_id: Mapped[str | None] = mapped_column(String, nullable=True, default=None)
+
     # Deprecated
     is_food: Mapped[bool | None] = mapped_column(Boolean, default=False)
 

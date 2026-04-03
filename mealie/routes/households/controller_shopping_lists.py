@@ -1,10 +1,13 @@
+import asyncio
 import logging
-from collections.abc import Callable
+from collections.abc import AsyncIterable, Callable
 from functools import cached_property
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi.sse import EventSourceResponse, ServerSentEvent
 from pydantic import UUID4
 
+from mealie.core.dependencies.dependencies import get_current_user
 from mealie.routes._base.base_controllers import BaseCrudController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
@@ -34,53 +37,38 @@ from mealie.services.event_bus_service.event_types import (
     EventShoppingListItemBulkData,
     EventTypes,
 )
+from mealie.services.event_bus_service.sse_manager import sse_manager
 from mealie.services.household_services.shopping_lists import ShoppingListService
+
+logger = logging.getLogger(__name__)
 
 item_router = APIRouter(prefix="/households/shopping/items", tags=["Households: Shopping List Items"])
 
-nc_log = logging.getLogger(__name__)
 
-
-def _nc_push_items(controller: "ShoppingListItemController", items: ShoppingListItemsCollectionOut) -> None:
-    """Push item changes to Nextcloud if configured."""
-    try:
-        from mealie.services.nextcloud.sync import NextcloudSyncService, create_nc_service_from_prefs
-
-        prefs = controller.household.preferences
-        nc = create_nc_service_from_prefs(prefs)
-        if not nc:
-            return
-
-        sync = NextcloudSyncService(controller.repos, nc)
-
-        if items.created_items:
-            # Group by shopping list to batch the push
-            by_list: dict[str, list] = {}
-            for item in items.created_items:
-                by_list.setdefault(str(item.shopping_list_id), []).append(item.id)
-            for list_id, item_ids in by_list.items():
-                sync.push_items_created(UUID4(list_id), item_ids)
-
-        if items.updated_items:
-            by_list = {}
-            for item in items.updated_items:
-                by_list.setdefault(str(item.shopping_list_id), []).append(item.id)
-            for list_id, item_ids in by_list.items():
-                sync.push_items_updated(UUID4(list_id), item_ids)
-
-        if items.deleted_items:
-            nc_uids = []
-            for item in items.deleted_items:
-                nc_uid = (item.extras or {}).get("nextcloud_uid")
-                if nc_uid:
-                    nc_uids.append(nc_uid)
-            if nc_uids:
-                sync.push_items_deleted_by_nc_uids(nc_uids)
-    except Exception:
-        nc_log.warning("Nextcloud push failed", exc_info=True)
+def _broadcast_sse(items_collection: ShoppingListItemsCollectionOut) -> None:
+    """Broadcast item changes to all SSE clients watching affected shopping lists."""
+    for operation, items_list in [
+        ("create", items_collection.created_items),
+        ("update", items_collection.updated_items),
+        ("delete", items_collection.deleted_items),
+    ]:
+        if not items_list:
+            continue
+        items_by_list_id: dict[UUID4, list[ShoppingListItemOut]] = {}
+        for item in items_list:
+            items_by_list_id.setdefault(item.shopping_list_id, []).append(item)
+        for shopping_list_id, items in items_by_list_id.items():
+            sse_manager.broadcast(
+                str(shopping_list_id),
+                operation,
+                [item.id for item in items],
+            )
 
 
 def publish_list_item_events(publisher: Callable, items_collection: ShoppingListItemsCollectionOut) -> None:
+    # Broadcast to SSE clients
+    _broadcast_sse(items_collection)
+
     items_by_list_id: dict[UUID4, list[ShoppingListItemOut]]
     if items_collection.created_items:
         items_by_list_id = {}
@@ -164,7 +152,6 @@ class ShoppingListItemController(BaseCrudController):
     def create_many(self, data: list[ShoppingListItemCreate]):
         items = self.service.bulk_create_items(data)
         publish_list_item_events(self.publish_event, items)
-        _nc_push_items(self, items)
         return items
 
     @item_router.post("", response_model=ShoppingListItemsCollectionOut, status_code=201)
@@ -179,7 +166,6 @@ class ShoppingListItemController(BaseCrudController):
     def update_many(self, data: list[ShoppingListItemUpdateBulk]):
         items = self.service.bulk_update_items(data)
         publish_list_item_events(self.publish_event, items)
-        _nc_push_items(self, items)
         return items
 
     @item_router.put("/{item_id}", response_model=ShoppingListItemsCollectionOut)
@@ -188,30 +174,8 @@ class ShoppingListItemController(BaseCrudController):
 
     @item_router.delete("", response_model=SuccessResponse)
     def delete_many(self, ids: list[UUID4] = Query(None)):
-        # Capture NC UIDs before deletion
-        nc_uids_to_delete: list[str] = []
-        for item_id in (ids or []):
-            item = self.repo.get_one(item_id)
-            if item:
-                nc_uid = (item.extras or {}).get("nextcloud_uid")
-                if nc_uid:
-                    nc_uids_to_delete.append(nc_uid)
-
         items = self.service.bulk_delete_items(ids)
         publish_list_item_events(self.publish_event, items)
-
-        # Push deletes to NC
-        if nc_uids_to_delete:
-            try:
-                from mealie.services.nextcloud.sync import NextcloudSyncService, create_nc_service_from_prefs
-                prefs = self.household.preferences
-                nc = create_nc_service_from_prefs(prefs)
-                if nc:
-                    sync = NextcloudSyncService(self.repos, nc)
-                    sync.push_items_deleted_by_nc_uids(nc_uids_to_delete)
-            except Exception:
-                nc_log.warning("Nextcloud delete push failed", exc_info=True)
-
         return SuccessResponse.respond()
 
     @item_router.delete("/{item_id}", response_model=SuccessResponse)
@@ -265,18 +229,6 @@ class ShoppingListController(BaseCrudController):
 
     @router.get("/{item_id}", response_model=ShoppingListOut)
     def get_one(self, item_id: UUID4):
-        # Pull latest changes from Nextcloud if configured for this household
-        try:
-            from mealie.services.nextcloud.sync import NextcloudSyncService, create_nc_service_from_prefs
-
-            prefs = self.household.preferences
-            nc = create_nc_service_from_prefs(prefs)
-            if nc:
-                sync = NextcloudSyncService(self.repos, nc)
-                sync.pull_changes(item_id)
-        except Exception:
-            logging.getLogger(__name__).warning("Nextcloud pull-on-load failed", exc_info=True)
-
         return self.mixins.get_one(item_id)
 
     @router.put("/{item_id}", response_model=ShoppingListOut)
@@ -359,3 +311,30 @@ class ShoppingListController(BaseCrudController):
 
         publish_list_item_events(self.publish_event, items)
         return shopping_list
+
+
+# =======================================================================
+# SSE Streaming Endpoint (separate router to avoid @controller prefix reset)
+
+sse_router = APIRouter(prefix="/households/shopping/lists", tags=["Households: Shopping Lists"])
+
+
+@sse_router.get("/{item_id}/stream", response_class=EventSourceResponse)
+async def stream_shopping_list_events(
+    item_id: UUID4,
+    _=Depends(get_current_user),
+) -> AsyncIterable[ServerSentEvent]:
+    """Stream real-time item change events for a shopping list via SSE."""
+    list_id = str(item_id)
+    queue = sse_manager.connect(list_id)
+    try:
+        while True:
+            try:
+                data = await asyncio.wait_for(queue.get(), timeout=30.0)
+                yield ServerSentEvent(data=data, event="items_changed")
+            except asyncio.TimeoutError:
+                yield ServerSentEvent(comment="keepalive")
+    except asyncio.CancelledError:
+        pass
+    finally:
+        sse_manager.disconnect(list_id, queue)
