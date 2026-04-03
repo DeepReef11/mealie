@@ -66,12 +66,16 @@ class ShoppingListItemBase(RecipeIngredientBase):
     label_id: UUID4 | None = None
     unit_id: UUID4 | None = None
 
-    extras: dict | None = {}
+    provider_item_id: str | None = None
+
+    extras: dict | None = None
 
     @field_validator("extras", mode="before")
     def convert_extras_to_dict(cls, v):
         if isinstance(v, dict):
             return v
+        if v is None:
+            return None
 
         return {x.key_name: x.value for x in v} if v else {}
 
@@ -79,6 +83,7 @@ class ShoppingListItemBase(RecipeIngredientBase):
 class ShoppingListItemCreate(ShoppingListItemBase):
     id: UUID4 | None = None
     """The unique id of the item to create. If not supplied, one will be generated."""
+    extras: dict | None = {}
     recipe_references: list[ShoppingListItemRecipeRefCreate] = []
 
     @field_validator("id", mode="before")
@@ -95,6 +100,18 @@ class ShoppingListItemCreate(ShoppingListItemBase):
 
 class ShoppingListItemUpdate(ShoppingListItemBase):
     recipe_references: list[ShoppingListItemRecipeRefCreate | ShoppingListItemRecipeRefUpdate] = []
+
+    def model_dump(self, **kwargs):
+        d = super().model_dump(**kwargs)
+        # When extras is None (not provided) or empty dict (frontend default),
+        # exclude it so the existing extras on the model are preserved during update.
+        if not d.get("extras"):
+            d.pop("extras", None)
+        # When provider_item_id is None (not provided by caller), exclude it
+        # so the existing value on the model is preserved during update.
+        if d.get("provider_item_id") is None:
+            d.pop("provider_item_id", None)
+        return d
 
 
 class ShoppingListItemUpdateBulk(ShoppingListItemUpdate):

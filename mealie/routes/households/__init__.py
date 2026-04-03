@@ -21,6 +21,7 @@ router.include_router(controller_household_self_service.router)
 router.include_router(controller_invitations.router)
 router.include_router(controller_shopping_lists.router)
 router.include_router(controller_shopping_lists.item_router)
+router.include_router(controller_shopping_lists.sse_router)
 router.include_router(controller_webhooks.router)
 
 # mealplan_rules must be added before mealplan due to the way the routes are defined
